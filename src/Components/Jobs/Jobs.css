@@ -1,0 +1,116 @@
+
+.jobMainContainer {
+    display: flex;
+    flex-direction: row;
+    height: auto;
+    background-color: #e0e0e0;
+    
+}
+
+.jobFilterSidebar {
+    padding: 20px;
+    background-color: #fff;
+    box-sizing: border-box;
+    margin-left: 50px; /* Adjusted margin-left to ensure it's within the main container's margins */
+    width: 300px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    border-radius: 10px;
+}
+
+.jobFilterSidebar h3, .jobFilterSidebar h4 {
+    margin-top: 20px;
+}
+
+.jobSearchInput, .jobLocationInput, .jobCategoriesSelect, .jobLocationsSelect, .jobSkillsSelect, .jobExperienceSelect, .jobTypeSelect, .jobLevelSelect, .jobRadiusSlider {
+    width: 100%; /* These elements will take up the full width of their parent, the sidebar */
+    padding: 10px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.jobSearchButton {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    width: 100%; /* This button will take up the full width of its parent, the sidebar */
+}
+
+.jobSearchButton:hover {
+    background-color: #0056b3;
+}
+
+.jobListings {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex; /* Added display: flex; to make .jobListings a flex container */
+    flex-wrap: wrap; /* Allows .jobDetails to wrap into new lines */
+    justify-content: space-between; /* Spaces out .jobDetails evenly */
+}
+.jobheaderContainer {
+    display: flex;
+    align-items: center; /* Align items vertically in the center */
+    justify-content: space-between; /* Space out the heading and button */
+    margin-bottom: 20px; /* Add some space below the header */
+   }
+   
+   .clearAllButton {
+    padding: 10px 20px;
+    background-color: #fff; /* Light gray background */
+    color: #333; /* Dark gray text */
+    border: none;
+    cursor: pointer;
+   }
+   
+.jobListing {
+ display: flex;
+ margin-top: 50px;
+ flex-wrap: wrap;
+ justify-content: space-between;
+ padding: 20px;
+ padding-left: 20px;
+}
+
+.jobDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 250px; /* Adjusted height to ensure it fits within the layout */
+    width: calc(33.33% - 20px); /* Adjusted width calculation */
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.jobType, .jobTitle, .skills, .salary, .openings {
+ margin-bottom: 10px; /* Space between details */
+}
+
+.jobTitle {
+ font-size: 1.2em; /* Adjust font size as needed */
+}
+
+/* Ensure there's no margin on the right for the last job in each row */
+.jobDetails:nth-child(3n) {
+ margin-right: 0;
+}
+
+.jobDetails-content {
+    height: 170px;
+}
+
+.jobImage {
+    display: block;
+    max-width: 100%; /* Adjust as needed */
+    height: auto; /* Maintains aspect ratio */
+    object-fit: contain; /* Covers the area without stretching */
+    margin-left: auto; /* Centers the image horizontally */
+    margin-right: auto; 
+    margin-bottom: 10px; /* Adds some space below the image */
+   }
+   
