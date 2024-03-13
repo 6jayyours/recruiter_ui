@@ -1,0 +1,22 @@
+.admin-user-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Adjust as needed */
+   }
+   
+   .admin-content {
+    display: flex;
+    flex: 1; /* This will make the content area take up the remaining space */
+   }
+   
+   .admin-sidebar {
+    
+    background-color: #f5f5f5; /* Example background color */
+    padding: 20px;
+   }
+   
+   .admin-main {
+    flex: 1; /* This will make the main content area take up the remaining space */
+    padding: 20px;
+   }
+   

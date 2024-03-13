@@ -66,7 +66,7 @@ function Jobs() {
         <div class="jobDetails">
           <div className="jobDetails-content">
             <div className="jobType">Internship</div>
-            <div className="imageContainer">
+            <div className="jobImageContainer">
               <img src="" alt="Job" className="jobImage" />
             </div>
             <h2 className="jobTitle">Jr. PHP Developer</h2>
@@ -78,7 +78,7 @@ function Jobs() {
         <div class="jobDetails">
           <div className="jobDetails-content">
             <div className="jobType">Internship</div>
-            <div className="imageContainer">
+            <div className="jobImageContainer">
               <img src="" alt="Job" className="jobImage" />
             </div>
             <h2 className="jobTitle">Jr. PHP Developer</h2>
@@ -90,7 +90,7 @@ function Jobs() {
         <div class="jobDetails">
           <div className="jobDetails-content">
             <div className="jobType">Internship</div>
-            <div className="imageContainer">
+            <div className="jobImageContainer">
               <img src="" alt="Job" className="jobImage" />
             </div>
             <h2 className="jobTitle">Jr. PHP Developer</h2>

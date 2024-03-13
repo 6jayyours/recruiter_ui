@@ -1,0 +1,20 @@
+.MuiTableRow-root>*{
+    padding: 10px;
+}
+
+.MuiTableRow-root.MuiTableRow-head>* {
+    font-weight:bold !important;
+}
+
+.admin-user td, th {
+    border: none !important;
+}
+
+.admin-user:first-child {
+    border-radius: 0.9rem !important;
+}
+
+.userstatus {
+    padding: 8px;
+    border-radius: 9px;
+}
