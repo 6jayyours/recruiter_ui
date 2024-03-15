@@ -1,15 +1,30 @@
 import React, { useState } from 'react';
 import './Loginmodal.css';
+import {  useDispatch } from 'react-redux';
+import { signUpUser, signInUser, verifyUser } from '../../Redux/authSlice';
+import { useNavigate } from "react-router-dom";
 
 function Loginmodal({ onClose }) {
   const [isSignUpActive, setIsSignUpActive] = useState(false);
   const [isOTPVerificationActive, setIsOTPVerificationActive] = useState(false); // New state for OTP verification
   const [otpValue, setOtpValue] = useState('');
 
-// const handleOTPChange = (index, value) => {
-//  const newOtpValue = otpValue.substr(0, index) + value + otpValue.substr(index + 1);
-//  setOtpValue(newOtpValue);
-// };
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [userRole, setUserRole] = useState('');
+
+  const [luname, setLUname] = useState("");
+  const [lpassword, setLpassword] = useState("");
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate();
+
+
+const handleOTPChange = (index, value) => {
+ const newOtpValue = otpValue.substr(0, index) + value + otpValue.substr(index + 1);
+ setOtpValue(newOtpValue);
+};
 
   const handleSignUpClick = () => {
     setIsSignUpActive(true);
@@ -31,11 +46,22 @@ function Loginmodal({ onClose }) {
 
   const handleSignUpSubmit = (event) => {
     event.preventDefault(); 
+    dispatch(signUpUser({username,email,password}))
+    setIsOTPVerificationActive(true); 
+  };
+
+  const handleSignInSubmit = (event) => {
+    event.preventDefault(); 
+    const body = { username:luname, password: lpassword };
+    dispatch(signInUser(body))
+    // navigate("/", { replace: true });` 
     setIsOTPVerificationActive(true); 
   };
 
   const handleOTPVerificationSubmit = (event) => {
     event.preventDefault(); 
+    const body = { email, otp: otpValue };
+    dispatch(verifyUser(body))
     setIsOTPVerificationActive(false); 
     setIsSignUpActive(false); 
   };
@@ -54,7 +80,6 @@ function Loginmodal({ onClose }) {
       event.target.nextElementSibling.focus();
     }
   };
-
   return (
     <div className="modal-overla" onClick={handleModalClick}>
       <div className={`container ${isSignUpActive ? 'right-panel-active' : ''}`} id="container">
@@ -66,9 +91,29 @@ function Loginmodal({ onClose }) {
                 <a href="/" className="social"><i className="fab fa-google-plus-g"></i></a>
               </div>
               <span>or use your email for registration</span>
-              <input type="text" placeholder="Name" />
-              <input type="email" placeholder="Email" />
-              <input type="password" placeholder="Password" />
+              <input type="text" placeholder="Name" value={username} onChange={(e)=>setUsername(e.target.value)}/>
+              <input type="email" placeholder="Email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+              <input type="password" placeholder="Password" value={password} onChange={(e)=>setPassword(e.target.value)} />
+              <div className="radio-buttons-container">
+                <label>
+                 <input
+                    type="radio"
+                    value="USER"
+                    checked={userRole === 'USER'}
+                    onChange={(e)=>setUserRole(e.target.value)}
+                 />
+                 Candidate
+                </label>
+                <label>
+                 <input
+                    type="radio"
+                    value="RECRUITER"
+                    checked={userRole === 'RECRUITER'}
+                    onChange={(e)=>setUserRole(e.target.value)}
+                 />
+                 Recruiter
+                </label>
+              </div>
               <button type="submit">Sign Up</button>
             </form>
           </div>
@@ -80,10 +125,10 @@ function Loginmodal({ onClose }) {
               <span>Enter otp we have shared in your email</span>
               <div className="otp-input-container">
                 <div className="otp-input-container">
-                  <input type="password" maxLength="1" className="otp-input-box" onFocus={handleInputFocus} onBlur={handleInputBlur} onKeyUp={handleInputKeyUp} />
-                  <input type="password" maxLength="1" className="otp-input-box" onFocus={handleInputFocus} onBlur={handleInputBlur} onKeyUp={handleInputKeyUp} />
-                  <input type="password" maxLength="1" className="otp-input-box" onFocus={handleInputFocus} onBlur={handleInputBlur} onKeyUp={handleInputKeyUp} />
-                  <input type="password" maxLength="1" className="otp-input-box" onFocus={handleInputFocus} onBlur={handleInputBlur} onKeyUp={handleInputKeyUp} />
+                  <input type="password" maxLength="1" className="otp-input-box" onFocus={handleInputFocus} onBlur={handleInputBlur} onKeyUp={handleInputKeyUp} onChange={(e) => handleOTPChange(0, e.target.value)}/>
+                  <input type="password" maxLength="1" className="otp-input-box" onFocus={handleInputFocus} onBlur={handleInputBlur} onKeyUp={handleInputKeyUp} onChange={(e) => handleOTPChange(1, e.target.value)}/>
+                  <input type="password" maxLength="1" className="otp-input-box" onFocus={handleInputFocus} onBlur={handleInputBlur} onKeyUp={handleInputKeyUp} onChange={(e) => handleOTPChange(2, e.target.value)}/>
+                  <input type="password" maxLength="1" className="otp-input-box" onFocus={handleInputFocus} onBlur={handleInputBlur} onKeyUp={handleInputKeyUp} onChange={(e) => handleOTPChange(3, e.target.value)}/>
                 </div>
 
               </div>
@@ -94,14 +139,14 @@ function Loginmodal({ onClose }) {
         )}
         {!isSignUpActive && !isOTPVerificationActive && (
           <div className="form-container sign-in-container">
-            <form action="#" onClick={stopPropagation}>
+            <form action="#" onClick={stopPropagation} onSubmit={handleSignInSubmit}>
               <h1>Sign in</h1>
               <div className="social-container">
                 <a href="/" className="social"><i className="fab fa-google-plus-g"></i></a>
               </div>
               <span>or use your account</span>
-              <input type="email" placeholder="Email" />
-              <input type="password" placeholder="Password" />
+              <input type="text" placeholder="Username" value={luname} onChange={(e)=>setLUname(e.target.value)}/>
+              <input type="password" placeholder="Password" value={lpassword} onChange={(e)=>setLpassword(e.target.value)} />
               <a href="/">Forgot your password?</a>
               <button>Sign In</button>
             </form>
