@@ -5,18 +5,20 @@ const initialState = {
     msg:'',
     user:'',
     token: '',
+    userRole:'',
     allUsers: [],
     loading:false,
     error:''
 
 }
 
+
+
 export const signUpUser = createAsyncThunk('signupuser', async(body)=>{
     const res = await axios.post("http://localhost:8080/api/v1/auth/register", body, {
         headers:{
             'content-Type' : "application/json",
         },
-        body : JSON.stringify(body)
     })
     return res.data;
 })
@@ -25,10 +27,8 @@ export const signInUser = createAsyncThunk('signinuser', async(body)=>{
     const res = await axios.post("http://localhost:8080/api/v1/auth/authenticate", body, {
         headers:{
             'content-Type' : "application/json",
-            
         },
     })
-    console.log(res.data);
     return res.data;
     
 })
@@ -37,7 +37,6 @@ export const verifyUser = createAsyncThunk('verifyuser', async(body)=>{
     const res = await axios.post("http://localhost:8080/api/v1/auth/verify-otp", body, {
         headers:{
             'content-Type' : "application/json",
-            
         },
     })
     return res.data;
@@ -66,8 +65,9 @@ const authSlice = createSlice({
       })
       .addCase(signInUser.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.token = payload; // Assuming the payload is the token
-        localStorage.setItem('token', payload);
+        state.token = payload.token; // Assuming the payload is the token
+        localStorage.setItem('token', payload.token);
+        state.userRole = payload.role;
     })
       .addCase(signInUser.rejected, (state, action) => {
         state.loading = false; // Assuming loading should be set to false when rejected

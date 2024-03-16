@@ -36,9 +36,11 @@ const handleOTPChange = (index, value) => {
 
   const handleModalClick = (event) => {
     if (event.target.className === 'modal-overla' || !event.target.closest('.form-container')) {
-      onClose();
+       if (typeof onClose === 'function') {
+         onClose();
+       }
     }
-  };
+   };
 
   const stopPropagation = (event) => {
     event.stopPropagation();
@@ -46,17 +48,43 @@ const handleOTPChange = (index, value) => {
 
   const handleSignUpSubmit = (event) => {
     event.preventDefault(); 
-    dispatch(signUpUser({username,email,password}))
+    const body = { username:username, password: password,email:email,role:userRole };
+    dispatch(signUpUser(body))
     setIsOTPVerificationActive(true); 
   };
 
   const handleSignInSubmit = (event) => {
     event.preventDefault(); 
-    const body = { username:luname, password: lpassword };
+    const body = { username: luname, password: lpassword };
     dispatch(signInUser(body))
-    // navigate("/", { replace: true });` 
-    setIsOTPVerificationActive(true); 
-  };
+    .then(unwrapResult => {
+        // Check if the action was fulfilled
+        if (signInUser.fulfilled.match(unwrapResult)) {
+            const { payload } = unwrapResult;
+            // Assuming the payload includes the user's role
+            const userRole = payload.role;
+            console.log("User Role:", userRole);
+
+            // Navigate based on the user's role
+            if (userRole === 'USER') {
+                navigate('/home');
+            } else if (userRole === 'RECRUITER') {
+                navigate('/home');
+            } else {
+                // Default or error page
+                navigate('/error');
+            }
+            if (typeof onClose === 'function') {
+              onClose();
+          }
+        }
+    })
+    .catch(error => {
+        // Handle any errors here
+        console.error('Error signing in:', error);
+    });
+};
+
 
   const handleOTPVerificationSubmit = (event) => {
     event.preventDefault(); 

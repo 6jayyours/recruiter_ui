@@ -4,8 +4,9 @@ import Navbar from '../../Components/Navbar/Navbar'
 import Home from '../../Components/Homecontent/Home'
 
 function Homepage() {
+  
   return (
-    <div className='homepage'>
+    <div className='user-homepage'>
       <Navbar />
       <Home />
       <Footer />

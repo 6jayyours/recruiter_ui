@@ -7,6 +7,7 @@ import Loginmodal from './Components/Loginmodal/Loginmodal';
 import Adminuser from './Pages/Admin/Adminuser';
 import Adminrecruiter from './Pages/Admin/Adminrecruiter';
 import Post from './Pages/Recruiter/Jobpost/Post';
+import Recruiter from './Pages/Home/Recruiter';
 
 
 function App() {
@@ -14,7 +15,10 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Homepage />} /> 
+        <Route path="/home" element={<Homepage />} /> 
+      </Routes>
+      <Routes>
+        <Route path="/recruit" element={<Recruiter />} /> 
       </Routes>
       <Routes>
         <Route path="/login" element={<Loginmodal />} /> 
